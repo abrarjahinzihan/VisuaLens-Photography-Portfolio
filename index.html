@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VisuaLens Photography Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            accent: {
+              DEFAULT: '#C8A96E',
+              light: '#E0C99A',
+              dark: '#A07840',
+            },
+            dark: {
+              DEFAULT: '#0A0A0A',
+              100: '#141414',
+              200: '#1C1C1C',
+              300: '#252525',
+              400: '#333333',
+            },
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.4s ease forwards',
+            'slide-up': 'slideUp 0.5s ease forwards',
+            'zoom-in': 'zoomIn 0.3s ease forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            zoomIn: {
+              '0%': { opacity: '0', transform: 'scale(0.92)' },
+              '100%': { opacity: '1', transform: 'scale(1)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-dark text-gray-100 font-sans min-h-screen">
+
+  <!-- ══════════════════ NAVBAR ══════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center group-hover:bg-accent/30 transition-all duration-300">
+          <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <div>
+          <span class="text-white font-serif text-lg font-bold tracking-wide">VisuaLens</span>
+          <span class="block text-accent text-xs font-light tracking-widest uppercase">Photography</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#gallery" class="nav-link text-sm text-gray-400 hover:text-accent transition-colors duration-200 tracking-wider uppercase">Gallery</a>
+        <a href="#about" class="nav-link text-sm text-gray-400 hover:text-accent transition-colors duration-200 tracking-wider uppercase">About</a>
+        <a href="#contact" class="nav-link text-sm text-gray-400 hover:text-accent transition-colors duration-200 tracking-wider uppercase">Contact</a>
+        <a href="#contact" class="btn-primary px-5 py-2 text-sm rounded-full border border-accent text-accent hover:bg-accent hover:text-dark-100 transition-all duration-300 tracking-wider uppercase">
+          Hire Me
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="menu-toggle" class="md:hidden w-9 h-9 flex flex-col justify-center items-center gap-1.5">
+        <span class="menu-bar w-6 h-0.5 bg-gray-300 transition-all duration-300 origin-center"></span>
+        <span class="menu-bar w-6 h-0.5 bg-gray-300 transition-all duration-300 origin-center"></span>
+        <span class="menu-bar w-4 h-0.5 bg-gray-300 transition-all duration-300 origin-center"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-dark-200/95 backdrop-blur-md border-t border-dark-400 px-6 py-6 flex flex-col gap-5">
+      <a href="#gallery" class="text-gray-300 hover:text-accent transition-colors tracking-widest uppercase text-sm">Gallery</a>
+      <a href="#about" class="text-gray-300 hover:text-accent transition-colors tracking-widest uppercase text-sm">About</a>
+      <a href="#contact" class="text-gray-300 hover:text-accent transition-colors tracking-widest uppercase text-sm">Contact</a>
+      <a href="#contact" class="w-fit px-6 py-2 rounded-full border border-accent text-accent text-sm uppercase tracking-wider hover:bg-accent hover:text-dark-100 transition-all duration-300">Hire Me</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+
+    <!-- Animated Background Blobs -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="blob blob-1 absolute w-96 h-96 rounded-full bg-accent/5 blur-3xl"></div>
+      <div class="blob blob-2 absolute w-80 h-80 rounded-full bg-purple-900/10 blur-3xl"></div>
+      <div class="blob blob-3 absolute w-72 h-72 rounded-full bg-accent/8 blur-3xl"></div>
+    </div>
+
+    <!-- Grid Overlay -->
+    <div class="absolute inset-0 grid-overlay opacity-10 pointer-events-none"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      <div class="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-accent/30 bg-accent/5 text-accent text-xs uppercase tracking-widest animate-fade-in">
+        <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+        Available for Commissions
+      </div>
+
+      <h1 class="font-serif text-5xl sm:text-6xl md:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up">
+        Capturing<br/>
+        <em class="text-accent italic">Moments</em> in<br/>
+        Time
+      </h1>
+
+      <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed animate-slide-up" style="animation-delay:0.15s">
+        A curated collection of visual stories — from sweeping landscapes to intimate portraits, 
+        every frame tells an unforgettable tale.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style="animation-delay:0.3s">
+        <a href="#gallery" class="group px-8 py-4 bg-accent text-dark-100 rounded-full font-semibold tracking-wider uppercase text-sm hover:bg-accent-light transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-accent/25">
+          View Gallery
+          <span class="ml-2 inline-block group-hover:translate-x-1 transition-transform duration-200">→</span>
+        </a>
+        <a href="#about" class="px-8 py-4 border border-dark-400 text-gray-300 rounded-full font-medium tracking-wider uppercase text-sm hover:border-accent hover:text-accent transition-all duration-300">
+          Learn More
+        </a>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="mt-20 grid grid-cols-3 gap-8 max-w-lg mx-auto animate-fade-in" style="animation-delay:0.5s">
+        <div class="text-center">
+          <div class="font-serif text-3xl font-bold text-accent">12K+</div>
+          <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Photos</div>
+        </div>
+        <div class="text-center border-x border-dark-400">
+          <div class="font-serif text-3xl font-bold text-accent">8</div>
+          <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Years</div>
+        </div>
+        <div class="text-center">
+          <div class="font-serif text-3xl font-bold text-accent">340+</div>
+          <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Clients</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600 text-xs uppercase tracking-widest animate-fade-in" style="animation-delay:0.8s">
+      <span>Scroll</span>
+      <div class="scroll-indicator w-px h-12 bg-gradient-to-b from-gray-600 to-transparent relative overflow-hidden">
+        <div class="scroll-dot absolute top-0 w-full h-3 bg-accent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ GALLERY ══════════════════ -->
+  <section id="gallery" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <span class="text-accent text-xs uppercase tracking-widest font-medium">Portfolio</span>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-white mt-3 mb-4">The Gallery</h2>
+        <p class="text-gray-500 max-w-xl mx-auto leading-relaxed">
+          Browse through carefully selected photographs spanning nature, architecture, portraits, and more.
+        </p>
+        <div class="mt-6 w-16 h-px bg-accent mx-auto"></div>
+      </div>
+
+      <!-- Category Filter Buttons -->
+      <div id="filter-bar" class="flex flex-wrap justify-center gap-3 mb-12">
+        <button class="filter-btn active" data-filter="all">
+          <span class="count-badge" id="count-all">24</span>
+          All
+        </button>
+        <button class="filter-btn" data-filter="nature">
+          <span class="count-badge" id="count-nature"></span>
+          Nature
+        </button>
+        <button class="filter-btn" data-filter="portrait">
+          <span class="count-badge" id="count-portrait"></span>
+          Portrait
+        </button>
+        <button class="filter-btn" data-filter="architecture">
+          <span class="count-badge" id="count-architecture"></span>
+          Architecture
+        </button>
+        <button class="filter-btn" data-filter="street">
+          <span class="count-badge" id="count-street"></span>
+          Street
+        </button>
+        <button class="filter-btn" data-filter="abstract">
+          <span class="count-badge" id="count-abstract"></span>
+          Abstract
+        </button>
+      </div>
+
+      <!-- Results Counter -->
+      <div class="text-center text-gray-500 text-sm mb-8">
+        Showing <span id="results-count" class="text-accent font-semibold">24</span> photos
+      </div>
+
+      <!-- Masonry Gallery Grid -->
+      <div id="gallery-grid" class="masonry-grid">
+        <!-- Cards injected by JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden text-center py-24">
+        <div class="text-6xl mb-4">📷</div>
+        <p class="text-gray-500 text-lg">No photos in this category yet.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════ ABOUT ══════════════════ -->
+  <section id="about" class="py-24 px-6 bg-dark-100">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+
+        <!-- Image Side -->
+        <div class="relative">
+          <div class="about-image-wrapper relative rounded-2xl overflow-hidden aspect-[3/4] max-w-md mx-auto">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"
+              alt="Photographer"
+              class="w-full h-full object-cover"
+              loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <div class="text-white font-serif text-xl font-bold">Alex VisuaLens</div>
+              <div class="text-accent text-sm tracking-widest uppercase mt-1">Lead Photographer</div>
+            </div>
+          </div>
+          <!-- Floating Badge -->
+          <div class="absolute -top-4 -right-4 md:-right-8 w-20 h-20 rounded-full bg-dark-200 border-2 border-accent/40 flex flex-col items-center justify-center shadow-xl">
+            <span class="font-serif font-bold text-accent text-lg">8+</span>
+            <span class="text-gray-400 text-xs uppercase">Years</span>
+          </div>
+        </div>
+
+        <!-- Text Side -->
+        <div>
+          <span class="text-accent text-xs uppercase tracking-widest font-medium">About Me</span>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold text-white mt-3 mb-6 leading-tight">
+            Passion Behind<br/>Every Lens
+          </h2>
+          <p class="text-gray-400 leading-relaxed mb-6">
+            I'm a professional photographer with over 8 years of experience capturing the world's most breathtaking moments. 
+            From sprawling landscapes to intimate portraits, my work is defined by its emotional depth and technical precision.
+          </p>
+          <p class="text-gray-400 leading-relaxed mb-8">
+            My journey started with a small film camera and an obsession for golden-hour light. Today, I work with clients worldwide 
+            to create visual stories that last a lifetime.
+          </p>
+
+          <!-- Skills -->
+          <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="skill-item flex items-center gap-3 p-3 rounded-lg bg-dark-200 border border-dark-400">
+              <span class="text-accent text-xl">🌅</span>
+              <span class="text-gray-300 text-sm">Landscape</span>
+            </div>
+            <div class="skill-item flex items-center gap-3 p-3 rounded-lg bg-dark-200 border border-dark-400">
+              <span class="text-accent text-xl">👤</span>
+              <span class="text-gray-300 text-sm">Portrait</span>
+            </div>
+            <div class="skill-item flex items-center gap-3 p-3 rounded-lg bg-dark-200 border border-dark-400">
+              <span class="text-accent text-xl">🏙️</span>
+              <span class="text-gray-300 text-sm">Architecture</span>
+            </div>
+            <div class="skill-item flex items-center gap-3 p-3 rounded-lg bg-dark-200 border border-dark-400">
+              <span class="text-accent text-xl">🎨</span>
+              <span class="text-gray-300 text-sm">Fine Art</span>
+            </div>
+          </div>
+
+          <a href="#contact" class="inline-flex items-center gap-2 px-8 py-3 bg-accent text-dark-100 rounded-full font-semibold text-sm uppercase tracking-wider hover:bg-accent-light transition-all duration-300 hover:scale-105">
+            Work With Me
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CONTACT ══════════════════ -->
+  <section id="contact" class="py-24 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-accent text-xs uppercase tracking-widest font-medium">Get In Touch</span>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold text-white mt-3 mb-4">Let's Create Together</h2>
+        <p class="text-gray-500 max-w-xl mx-auto">Have a project in mind? Let's discuss how we can bring your vision to life.</p>
+        <div class="mt-6 w-16 h-px bg-accent mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Contact Info -->
+        <div class="space-y-6">
+          <div class="contact-card flex items-center gap-4 p-5 rounded-xl bg-dark-200 border border-dark-400 hover:border-accent/40 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-500 text-xs uppercase tracking-widest">Email</p>
+              <p class="text-gray-200 font-medium">hello@visualens.com</p>
+            </div>
+          </div>
+
+          <div class="contact-card flex items-center gap-4 p-5 rounded-xl bg-dark-200 border border-dark-400 hover:border-accent/40 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-500 text-xs uppercase tracking-widest">Location</p>
+              <p class="text-gray-200 font-medium">New York City, USA</p>
+            </div>
+          </div>
+
+          <div class="contact-card flex items-center gap-4 p-5 rounded-xl bg-dark-200 border border-dark-400 hover:border-accent/40 transition-all duration-300">
+            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-gray-500 text-xs uppercase tracking-widest">Response Time</p>
+              <p class="text-gray-200 font-medium">Within 24 hours</p>
+            </div>
+          </div>
+
+          <!-- Social Links -->
+          <div class="flex gap-3 pt-2">
+            <a href="#" class="social-btn w-10 h-10 rounded-full bg-dark-300 border border-dark-400 flex items-center justify-center hover:border-accent hover:text-accent text-gray-500 transition-all duration-300" aria-label="Instagram">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="#" class="social-btn w-10 h-10 rounded-full bg-dark-300 border border-dark-400 flex items-center justify-center hover:border-accent hover:text-accent text-gray-500 transition-all duration-300" aria-label="Behance">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 7h-7V5h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029H23.726zm-7.726-3h3.457c-.123-1.547-1.097-2.254-1.709-2.254-.65 0-1.647.56-1.748 2.254zM7.33 7.339c1.169 0 2.155.308 2.78.907.627.6.957 1.503.957 2.657 0 1.164-.402 2.025-1.197 2.587 1.228.56 1.845 1.572 1.845 3.055 0 1.278-.412 2.282-1.228 2.994-.816.712-2.034 1.072-3.638 1.072H0V7.339h7.33zm-.985 4.859c1.17 0 1.753-.455 1.753-1.464 0-.949-.558-1.405-1.666-1.405H3.335v2.869h3.01zm.246 5.067c1.235 0 1.853-.533 1.853-1.616 0-1.065-.656-1.597-1.985-1.597H3.335v3.213h3.256z"/></svg>
+            </a>
+            <a href="#" class="social-btn w-10 h-10 rounded-full bg-dark-300 border border-dark-400 flex items-center justify-center hover:border-accent hover:text-accent text-gray-500 transition-all duration-300" aria-label="500px">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.788 7.115a7.136 7.136 0 00-5.073-2.1 7.136 7.136 0 00-5.072 2.1A7.136 7.136 0 006.544 12.19a7.136 7.136 0 002.099 5.073 7.136 7.136 0 005.072 2.1 7.136 7.136 0 005.073-2.1 7.136 7.136 0 002.099-5.073 7.136 7.136 0 00-2.099-5.075zm-5.073 10.609a5.534 5.534 0 110-11.067 5.534 5.534 0 010 11.067zm0-9.023a3.49 3.49 0 100 6.98 3.49 3.49 0 000-6.98zM5.44 3.467L4.013 1.962A11.985 11.985 0 000 10.154h2.098a9.887 9.887 0 013.342-6.687zm13.12 0a9.887 9.887 0 013.342 6.687H24a11.985 11.985 0 00-4.013-8.192l-1.427 1.505z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form id="contact-form" class="space-y-5" novalidate>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" placeholder="Alex" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" placeholder="Smith" class="form-input" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" placeholder="alex@example.com" class="form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Project Type</label>
+            <select class="form-input">
+              <option value="" disabled selected>Select a category...</option>
+              <option>Wedding Photography</option>
+              <option>Portrait Session</option>
+              <option>Commercial / Editorial</option>
+              <option>Event Coverage</option>
+              <option>Fine Art Print</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea rows="4" placeholder="Tell me about your project..." class="form-input resize-none"></textarea>
+          </div>
+          <button type="submit" id="submit-btn" class="w-full py-4 bg-accent text-dark-100 rounded-xl font-semibold tracking-wider uppercase hover:bg-accent-light transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/20">
+            Send Message
+          </button>
+          <div id="form-success" class="hidden text-center py-3 text-green-400 text-sm animate-fade-in">
+            ✅ Message sent! I'll get back to you within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer class="bg-dark-100 border-t border-dark-400 py-10 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
+          <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+        <span class="font-serif text-white font-bold">VisuaLens</span>
+      </div>
+      <p class="text-gray-600 text-sm text-center">© 2026 VisuaLens Photography. All rights reserved.</p>
+      <div class="flex gap-6 text-sm text-gray-600">
+        <a href="#" class="hover:text-accent transition-colors">Privacy</a>
+        <a href="#" class="hover:text-accent transition-colors">Terms</a>
+        <a href="#" class="hover:text-accent transition-colors">Sitemap</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════ LIGHTBOX MODAL ══════════════════ -->
+  <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+    <!-- Backdrop -->
+    <div id="lightbox-backdrop" class="absolute inset-0 bg-black/92 backdrop-blur-md"></div>
+
+    <!-- Panel -->
+    <div id="lightbox-panel" class="relative z-10 max-w-5xl w-full max-h-[90vh] flex flex-col md:flex-row rounded-2xl overflow-hidden bg-dark-200 border border-dark-400 shadow-2xl animate-zoom-in">
+
+      <!-- Image -->
+      <div class="relative flex-1 min-h-[50vh] md:min-h-0 bg-dark overflow-hidden flex items-center justify-center">
+        <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain transition-opacity duration-300" />
+        <div id="lightbox-loader" class="absolute inset-0 flex items-center justify-center">
+          <div class="w-10 h-10 border-2 border-dark-400 border-t-accent rounded-full animate-spin"></div>
+        </div>
+      </div>
+
+      <!-- Info Panel -->
+      <div class="w-full md:w-72 p-6 flex flex-col justify-between border-t md:border-t-0 md:border-l border-dark-400">
+        <div>
+          <!-- Category Badge -->
+          <span id="lightbox-category" class="inline-block px-3 py-1 rounded-full text-xs uppercase tracking-widest bg-accent/15 text-accent border border-accent/30 mb-4"></span>
+          <h3 id="lightbox-title" class="font-serif text-2xl font-bold text-white mb-2"></h3>
+          <p id="lightbox-desc" class="text-gray-400 text-sm leading-relaxed mb-6"></p>
+
+          <!-- Meta -->
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-gray-600 w-20">Camera</span>
+              <span id="lightbox-camera" class="text-gray-300"></span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-gray-600 w-20">Aperture</span>
+              <span id="lightbox-aperture" class="text-gray-300"></span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-gray-600 w-20">ISO</span>
+              <span id="lightbox-iso" class="text-gray-300"></span>
+            </div>
+            <div class="flex items-center gap-3 text-sm">
+              <span class="text-gray-600 w-20">Location</span>
+              <span id="lightbox-location" class="text-gray-300"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-3 mt-6">
+          <button id="lightbox-prev" class="flex-1 py-2 rounded-lg border border-dark-400 text-gray-400 hover:border-accent hover:text-accent transition-all duration-200 text-sm flex items-center justify-center gap-2">
+            ← Prev
+          </button>
+          <button id="lightbox-next" class="flex-1 py-2 rounded-lg border border-dark-400 text-gray-400 hover:border-accent hover:text-accent transition-all duration-200 text-sm flex items-center justify-center gap-2">
+            Next →
+          </button>
+        </div>
+      </div>
+
+      <!-- Close Button -->
+      <button id="lightbox-close" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-dark-300/80 border border-dark-400 flex items-center justify-center text-gray-400 hover:text-white hover:border-accent transition-all duration-200 z-20">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
